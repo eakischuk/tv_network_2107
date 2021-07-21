@@ -29,5 +29,13 @@ RSpec.describe Show do
     it 'has character salary total' do
       expect(@knight_rider.total_salary).to eq(2600000)
     end
+
+    it 'has a highest paid actor' do
+      expect(@knight_rider.highest_paid_actor).to eq("David Hasselhoff")
+    end
+
+    it 'has actors' do
+      expect(@knight_rider.actors).to eq(["David Hasselhoff", "William Daniels"])
+    end
   end
 end
