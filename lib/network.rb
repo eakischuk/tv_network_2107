@@ -17,4 +17,14 @@ class Network
     end
     main_characters.flatten
   end
+
+  def actors_by_show
+    actors_by_show = Hash.new {|hash, key| hash[key] = []}
+    @shows.each do |show|
+      show.characters.each do |character|
+        actors_by_show[show] << character.actor
+      end
+    end
+    actors_by_show
+  end
 end
