@@ -41,7 +41,7 @@ RSpec.describe Network do
       @nbc.add_show(@knight_rider)
       @nbc.add_show(@parks_and_rec)
 
-      expect(@nbc.main_characters).to eq([@michael_knight, @kitt, @leslie_knope, @ron_swanson])
+      expect(@nbc.main_characters).to eq([@kitt])
     end
 
     it 'has network actors' do
@@ -73,15 +73,6 @@ RSpec.describe Network do
         "Amy Poehler" => [@parks_and_rec],
         "Nick Offerman" => [@parks_and_rec]
       })
-    end
-
-    it 'counts shows by actor' do
-      @nbc.add_show(@knight_rider)
-      @nbc.add_show(@parks_and_rec)
-      @nbc.add_show(@baywatch)
-
-      expect(@nbc.show_count("Amy Poehler")).to eq(1)
-      expect(@nbc.show_count("David Hasselhoff")).to eq(2)
     end
 
     it 'gives prolific actors' do

@@ -11,18 +11,23 @@ class Network
   end
 
   def main_characters
-    main_characters = []
-    @shows.each do |show|
-      main_characters << show.characters
-    end
-    main_characters.flatten
+     main_characters = []
+     @shows.each do |show|
+       show.characters.each do |character|
+         if character.name == character.name.upcase && character.salary > 500_000
+           main_characters << character
+         end
+       end
+     end
+     main_characters
+
   end
 
   def actors_by_show
     actors_by_show = Hash.new {|hash, key| hash[key] = []}
     @shows.each do |show|
-      show.characters.each do |character|
-        actors_by_show[show] << character.actor
+      show.actors.each do |actor|
+        actors_by_show[show] << actor
       end
     end
     actors_by_show
@@ -49,21 +54,13 @@ class Network
     actors.flatten.uniq
   end
 
-  def show_count(actor)
-    count = 0
-    @shows.each do |show|
-      if show.actors.include?(actor)
-        count += 1
-      end
-    end
-    count
-  end
+  
 
 
   def prolific_actors
     prolific_actors = []
     network_actors.each do |actor|
-      if show_count(actor) > 1
+      if shows_by_actor[actor].count > 1
         prolific_actors << actor
       end
     end
