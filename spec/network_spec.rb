@@ -26,5 +26,19 @@ RSpec.describe Network do
     it 'starts without shows' do
       expect(@nbc.shows).to eq([])
     end
+
+    it 'can add shows' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+
+      expect(@nbc.shows).to eq([@knight_rider, @parks_and_rec])
+    end
+
+    it 'has main characters' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+
+      expect(@nbc.main_characters).to eq([@michael_knight, @kitt, @leslie_knope, @ron_swanson])
+    end
   end
 end
