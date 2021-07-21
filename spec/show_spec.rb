@@ -25,5 +25,9 @@ RSpec.describe Show do
     it 'has characters' do
       expect(@knight_rider.characters).to eq([@michael_knight, @kitt])
     end
+
+    it 'has character salary total' do
+      expect(@knight_rider.total_salary).to eq(2600000)
+    end
   end
 end
