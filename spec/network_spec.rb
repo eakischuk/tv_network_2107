@@ -12,6 +12,8 @@ RSpec.describe Network do
     @leslie_knope = Character.new({name: "Leslie Knope", actor: "Amy Poehler", salary: 2_000_000})
     @ron_swanson = Character.new({name: "Ron Swanson", actor: "Nick Offerman", salary: 1_400_000})
     @parks_and_rec = Show.new("Parks and Recreation", "Michael Shur & Greg Daniels", [@leslie_knope, @ron_swanson])
+    @mitch = Character.new({name: "Mitch Buchannon", actor: "David Hasselhoff", salary: 1_200_000})
+    @baywatch = Show.new("Baywatch", "Gregory Bonann", [@mitch])
   end
 
   describe 'network' do
@@ -45,7 +47,23 @@ RSpec.describe Network do
       @nbc.add_show(@knight_rider)
       @nbc.add_show(@parks_and_rec)
 
-      expect(@nbc.actors_by_show).to eq({@knight_rider => ["David Hasselhoff", "William Daniels"], @parks_and_rec => ["Amy Poehler", "Nick Offerman"]})
+      expect(@nbc.actors_by_show).to eq({
+        @knight_rider => ["David Hasselhoff", "William Daniels"],
+        @parks_and_rec => ["Amy Poehler", "Nick Offerman"]
+        })
     end
+
+    it 'gives shows by actor' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+      @nbc.add_show(@baywatch)
+
+      expect(@nbc.shows_by_actor).to eq({
+        "David Hasselhoff" => [@knight_rider, @baywatch],
+        "William Daniels" => [@knight_rider],
+        "Amy Poehler" => [@parks_and_rec],
+        "Nick Offerman" => [@parks_and_rec]
+        })
+      end
   end
 end
