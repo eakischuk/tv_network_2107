@@ -29,20 +29,52 @@ class Network
   end
 
   def shows_by_actor
-    shows_by_actor = Hash.new {|hash, key| hash[key] = []}
+    @shows_by_actor = Hash.new {|hash, key| hash[key] = []}
     actors = []
     @shows.each do |show|
       actors << show.actors
     end
-    actors_flat = actors.flatten.uniq
+    @actors_flat = actors.flatten.uniq
 
-    actors_flat.each do |actor|
+    @actors_flat.each do |actor|
       @shows.each do |show|
         if show.actors.include?(actor)
-          shows_by_actor[actor] << show
+          @shows_by_actor[actor] << show
         end
       end
     end
-    shows_by_actor
+    @shows_by_actor
   end
+
+  def network_actors
+    actors = []
+    @shows.each do |show|
+      actors << show.actors
+    end
+    actors.flatten.uniq
+  end
+
+  def show_count(actor)
+    count = 0
+    @shows.each do |show|
+      if show.actors.include?(actor)
+        count += 1
+      end
+    end
+    count
+  end
+
+
+  def prolific_actors
+    prolific_actors = []
+    network_actors.each do |actor|
+      if show_count(actor) > 1
+        prolific_actors << actor
+      end
+    end
+    prolific_actors
+  end
+
+
+
 end
