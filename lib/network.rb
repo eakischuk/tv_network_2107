@@ -27,4 +27,22 @@ class Network
     end
     actors_by_show
   end
+
+  def shows_by_actor
+    shows_by_actor = Hash.new {|hash, key| hash[key] = []}
+    actors = []
+    @shows.each do |show|
+      actors << show.actors
+    end
+    actors_flat = actors.flatten.uniq
+
+    actors_flat.each do |actor|
+      @shows.each do |show|
+        if show.actors.include?(actor)
+          shows_by_actor[actor] << show
+        end
+      end
+    end
+    shows_by_actor
+  end
 end
