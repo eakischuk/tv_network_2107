@@ -2,6 +2,7 @@ require 'rspec'
 require './lib/character'
 require './lib/show'
 require './lib/network'
+require 'pry'
 
 RSpec.describe Network do
   before(:each) do
@@ -43,6 +44,14 @@ RSpec.describe Network do
       expect(@nbc.main_characters).to eq([@michael_knight, @kitt, @leslie_knope, @ron_swanson])
     end
 
+    it 'has network actors' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+      @nbc.add_show(@baywatch)
+
+      expect(@nbc.network_actors).to eq(["David Hasselhoff", "William Daniels", "Amy Poehler", "Nick Offerman"])
+    end
+
     it 'gives actors by show' do
       @nbc.add_show(@knight_rider)
       @nbc.add_show(@parks_and_rec)
@@ -63,7 +72,24 @@ RSpec.describe Network do
         "William Daniels" => [@knight_rider],
         "Amy Poehler" => [@parks_and_rec],
         "Nick Offerman" => [@parks_and_rec]
-        })
-      end
+      })
+    end
+
+    it 'counts shows by actor' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+      @nbc.add_show(@baywatch)
+
+      expect(@nbc.show_count("Amy Poehler")).to eq(1)
+      expect(@nbc.show_count("David Hasselhoff")).to eq(2)
+    end
+
+    it 'gives prolific actors' do
+      @nbc.add_show(@knight_rider)
+      @nbc.add_show(@parks_and_rec)
+      @nbc.add_show(@baywatch)
+
+      expect(@nbc.prolific_actors).to eq(["David Hasselhoff"])
+    end
   end
 end
